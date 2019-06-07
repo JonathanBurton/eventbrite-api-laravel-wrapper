@@ -141,8 +141,9 @@ class Client implements ClientInterface
      * @return string
      * @throws \Exception
      */
-    public function delete($endPoint, array $params = [], array $options = [])
+    public function delete($endPoint, array $params = null, array $options = [])
     {
+        $options['headers']['Authorization'] = "Bearer $this->token";
         $response = $this->client->delete($endPoint, $this->prepareData($params, $options));
         switch ($response->getHeader('content-type')) {
             case "application/json":
